@@ -12,6 +12,8 @@ async function getResponse(prompt){
         ]
     })
     return chatCompletion.choise[0].message.content
+
+    resizeBy.send(response)
 }
 
 module.exports = getResponse
