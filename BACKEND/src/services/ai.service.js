@@ -2,20 +2,18 @@ const Groq = require('groq-sdk')
 const groq = new Groq({apiKey: process.env.GROQ_API_KEY})
 
 async function getResponse(prompt){
-    console.log(prompt);
-    const chatCompletion =  await groq.chat.completion.create({
+    const chatCompletion =  await groq.chat.completions.create({
         model: "deepseek-r1-distill-qwen-32b",
-        message :[
+        messages :[
             {
-                role : "system",
+                role : "user",
                 content : prompt
             }
         ]
     })
 
-    return chatCompletion.choise[0].message.content
+    return chatCompletion.choices[0].message.content
 
-    
 }
 
-module.exports = getResponse;
+module.exports = { getResponse };
