@@ -1,4 +1,3 @@
-
 const aiService = require("../services/ai.service");
 
 module.exports.getResponse =  async (req, res) => {
@@ -9,4 +8,6 @@ module.exports.getResponse =  async (req, res) => {
     }
 
     const response = await aiService.getResponse(promt)
+
+    res.send(response)
 }
