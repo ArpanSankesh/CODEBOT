@@ -48,6 +48,7 @@ Brief summary of the code’s purpose and overall quality.
   });
 
   return chatCompletion.choices[0].message.content;
+  
 }
 
 module.exports = { getResponse };
