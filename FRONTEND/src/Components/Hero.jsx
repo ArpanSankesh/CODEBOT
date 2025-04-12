@@ -18,8 +18,6 @@ const Hero = () => {
   }, []);
 
   async function reviewCode(){
-    console.log("botton clicked");
-    
     const response = await axios.post("http://localhost:3000/ai/get-review/", {code});
     setReview(response.data);
 }
@@ -39,11 +37,11 @@ const Hero = () => {
   return (
     <div className='flex flex-col items-center min-h-screen bg-[#212121] text-white px-4 relative '>
       <div className='w-[50%] min-h-screen pb-70 text-s whitespace-pre-wrap'>
-      <Markdown rehypePlugins={[rehypeHighlight]} className="text-gray-300">{review}</Markdown>
+      <Markdown rehypePlugins={[rehypeHighlight]} >{review}</Markdown>
       </div>
 
-      <div className='fixed bottom-1 w-[50%] px-4 h-[30vh] bg-[#303030] pb-5 flex flex-col justify-between  gap-4 rounded-2xl'>
-        <div className='w-full h-full bg-[#303030] text-xs text-white text-start px-5 py-2 rounded-xl outline-none placeholder:text-gray-400 transition overflow-x-hidden'> 
+      <div className='fixed bottom-1 w-[50%] px-4 h-[20vh] bg-[#303030] pb-2 flex flex-col justify-between  gap-4 rounded-2xl'>
+        <div className='w-full h-full bg-[#303030] text-xs text-white text-start px-5 pt-1 rounded-xl outline-none placeholder:text-gray-400 transition overflow-x-hidden'> 
         <Editor placeholder='Ask Anything..' className='w-full h-full' value={code} onValueChange={(code) => setCode(code)}
               highlight={(code)=>prism.highlight(code, prism.languages.javascript, "javascript")}
               padding={10}
