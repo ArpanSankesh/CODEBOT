@@ -15,9 +15,9 @@ const Signup = () => {
 
     const handelChange = (e) => {
         const {name, value} = e.target;
-        const copyLoginInfo = {...signInInfo};
-        copyLoginInfo[name] = value;
-        setSignInInfo(copyLoginInfo);
+        const copySignInInfo = {...signInInfo};
+        copySignInInfo[name] = value;
+        setSignInInfo(copySignInInfo);
     }
     
     const handelSubmit = async (e) => {

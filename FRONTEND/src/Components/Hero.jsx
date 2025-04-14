@@ -18,9 +18,9 @@ const Hero = () => {
   }, []);
 
   async function reviewCode(){
-    const response = await axios.post("http://localhost:3000/ai/get-review/", {code});
-    console.log(response.data.message);
-    setReview(response.data.message);
+    const response = await axios.post("http://localhost:8080/ai/get-review/", {code});
+    console.log(response.data);
+    setReview(response.data);
 }
   
   function handelFileUplode(event) {
