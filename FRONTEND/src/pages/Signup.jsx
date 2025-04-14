@@ -1,10 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import {ToastContainer} from 'react-toastify'
+import { handelError } from '../utils/Utils'
 
 
 const Signup = () => { 
-    const [singInInfo, setSingInInfo] = React.useState({
+    const [signInInfo, setSignInInfo] = React.useState({
         name: "",
         email: "",
         password: ""
@@ -13,13 +14,31 @@ const Signup = () => {
     const handelChange = (e) => {
         const {name, value} = e.target;
         console.log(name, value);
-        const copyLoginInfo = {...singInInfo};
+        const copyLoginInfo = {...signInInfo};
         copyLoginInfo[name] = value;
-        setSingInInfo(copyLoginInfo);
+        setSignInInfo(copyLoginInfo);
     }
     
-    const handelSubmit = (e) => {
+    const handelSubmit = async (e) => {
         e.preventDefault()
+        const { name, email, password } = signInInfo;
+        if (!name || !email || !password) {
+            return handelError("Please fill all the fields");
+        } try {
+            const url = "http://localhost:8080/auth/signup"
+            const response = await fetch(url, {
+                method: "POST",
+                headers:{
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(signInInfo)
+            })
+            const result = await response.json()
+            console.log(result);
+            
+        } catch (error) {
+            handelError(error.message)
+        }
     }
     
     return (
@@ -39,23 +58,30 @@ const Signup = () => {
                         type="text"
                         name='name'
                         autoFocus
-                        placeholder="Name.." />
+                        placeholder="Name.." 
+                        value={signInInfo.name} />
                 </div>
+
                 <div className='flex flex-col w-[90%]'>
                     <input
                     onChange={handelChange}
                         className='bg-white py-2 px-2 text-lg border focus:ring-2 focus:ring-[#0099FF] rounded-md outline-none mt-2'
                         type="email"
                         name='email'
-                        placeholder="Email.." />
+                        placeholder="Email.." 
+                        value={signInInfo.email}
+                        />
                 </div>
+                
                 <div className='flex flex-col w-[90%]'>
                     <input
                     onChange={handelChange}
                         className='bg-white py-2 px-2 text-lg border focus:ring-2 focus:ring-[#0099FF]  rounded-md outline-none mt-2'
                         type="password"
-                        name='pass'
-                        placeholder="Password.." />
+                        name='password'
+                        placeholder="Password.." 
+                        value={signInInfo.password}
+                        />
                 </div>
                 <button className='w-[90%] text-2xl p-2 rounded-md text-white bg-[#0099FF] cursor-pointer font-semibold ' type="submit">Sign Up</button>
                 <p className='text-gray-500 font-semibold'>Already have an Account? <Link to="/login" className='text-[#0099FF]'>login</Link></p>
