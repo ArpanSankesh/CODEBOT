@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const cors = require('cors')
-.require('./models/db')
+require('./models/db')
 
 const aiRoutes = require('./routes/ai.routes')
 
