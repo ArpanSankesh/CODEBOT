@@ -1,7 +1,7 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import {ToastContainer} from 'react-toastify'
-import { handelError } from '../utils/Utils'
+import { handelError, handelSuccess } from '../utils/Utils'
 
 
 const Signup = () => { 
@@ -11,9 +11,10 @@ const Signup = () => {
         password: ""
     })
 
+    const nav = useNavigate()
+
     const handelChange = (e) => {
         const {name, value} = e.target;
-        console.log(name, value);
         const copyLoginInfo = {...signInInfo};
         copyLoginInfo[name] = value;
         setSignInInfo(copyLoginInfo);
@@ -34,7 +35,18 @@ const Signup = () => {
                 body: JSON.stringify(signInInfo)
             })
             const result = await response.json()
-            console.log(result);
+            const {success, message, error} = result
+            if(success){
+                handelSuccess(message)
+                setTimeout(() => {
+                    nav('/login')
+                }, 1000);
+            }else if(error){
+               const details = error?.details[0].message;
+               handelError(details)
+            }else if(!success){
+                handelError(message)
+            }
             
         } catch (error) {
             handelError(error.message)
@@ -72,7 +84,7 @@ const Signup = () => {
                         value={signInInfo.email}
                         />
                 </div>
-                
+
                 <div className='flex flex-col w-[90%]'>
                     <input
                     onChange={handelChange}
