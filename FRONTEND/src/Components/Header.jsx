@@ -11,7 +11,7 @@ const Header = () => {
     setLoginUser(localStorage.getItem("LoggedInUser"))
   }, [])
 
-  const handelLogout = (e) => {
+  const handelLogout = () => {
     localStorage.removeItem("token")
     localStorage.removeItem("loggedInUser")
     handelSuccess("Logout Successfully")
