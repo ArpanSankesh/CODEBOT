@@ -3,6 +3,6 @@ const router = expreess.Router();
 
 const aiController = require("../controllers/ai.controller")
 
-router.get('/get-review', aiController.getResponse) 
+router.post('/get-review', aiController.getResponse) 
 
 module.exports = router;
